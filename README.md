@@ -4,6 +4,12 @@ Perspective grid and floor design layer plugin for [genart.dev](https://genart.d
 
 Part of [genart.dev](https://genart.dev) — a generative art platform with an MCP server, desktop app, and IDE extensions.
 
+## Examples
+
+![Perspective guides montage](test-renders/perspective-guides.png)
+
+Source file: [perspective-guides.genart](test-renders/perspective-guides.genart)
+
 ## Install
 
 ```bash
@@ -116,17 +122,6 @@ A renderable perspective floor plane — included in exports (not a guide). Draw
 | `depthAlpha` | boolean | `true` | Fade lines near horizon |
 | `depthLineWidth` | boolean | `true` | Thin lines near horizon |
 | `baseAlpha` | number | `0.5` | Minimum alpha at horizon |
-
-## Test Render
-
-![Perspective guides montage](test-renders/perspective-guides.png)
-
-12-panel montage showing all layer types with variations:
-- **Row 1**: One-point grid with linear, quadratic, cubic, and exponential depth easing
-- **Row 2**: Two-point (wide VPs), two-point (narrow VPs), three-point bird's eye, three-point worm's eye
-- **Row 3**: Isometric 30deg, isometric 45deg, floor (quadratic/magenta), floor (exponential/cyan)
-
-Regenerate with `node render-test-perspective.cjs` (requires `canvas` dev dependency).
 
 ## MCP Tools (4)
 
