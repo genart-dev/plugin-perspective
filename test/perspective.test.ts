@@ -43,13 +43,13 @@ describe("perspective plugin", () => {
   it("exports a valid DesignPlugin", () => {
     expect(perspectivePlugin.id).toBe("perspective");
     expect(perspectivePlugin.tier).toBe("free");
-    expect(perspectivePlugin.layerTypes).toHaveLength(5);
-    expect(perspectivePlugin.mcpTools).toHaveLength(4);
+    expect(perspectivePlugin.layerTypes).toHaveLength(6);
+    expect(perspectivePlugin.mcpTools).toHaveLength(5);
   });
 
   it("guide layers have guide category", () => {
     const guides = perspectivePlugin.layerTypes.filter(
-      (lt) => lt.typeId !== "perspective:floor",
+      (lt) => lt.typeId !== "perspective:floor" && lt.typeId !== "perspective:atmosphere",
     );
     for (const lt of guides) {
       expect(lt.category).toBe("guide");

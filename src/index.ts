@@ -4,15 +4,16 @@ import { twoPointGridLayerType } from "./two-point-grid.js";
 import { threePointGridLayerType } from "./three-point-grid.js";
 import { isometricGridLayerType } from "./isometric-grid.js";
 import { perspectiveFloorLayerType } from "./perspective-plane.js";
+import { atmosphereLayerType } from "./atmosphere.js";
 import { perspectiveMcpTools } from "./perspective-tools.js";
 
 const perspectivePlugin: DesignPlugin = {
   id: "perspective",
   name: "Perspective Grids",
-  version: "0.1.0",
+  version: "0.2.0",
   tier: "free",
   description:
-    "Perspective guides: one-point, two-point, three-point, isometric grids, and floor plane.",
+    "Perspective guides: one-point, two-point, three-point, isometric grids, floor plane, and atmospheric perspective.",
 
   layerTypes: [
     onePointGridLayerType,
@@ -20,6 +21,7 @@ const perspectivePlugin: DesignPlugin = {
     threePointGridLayerType,
     isometricGridLayerType,
     perspectiveFloorLayerType,
+    atmosphereLayerType,
   ],
   tools: [],
   exportHandlers: [],
@@ -40,6 +42,7 @@ export { twoPointGridLayerType } from "./two-point-grid.js";
 export { threePointGridLayerType } from "./three-point-grid.js";
 export { isometricGridLayerType } from "./isometric-grid.js";
 export { perspectiveFloorLayerType } from "./perspective-plane.js";
+export { atmosphereLayerType } from "./atmosphere.js";
 export { perspectiveMcpTools } from "./perspective-tools.js";
 export {
   applyDepthEasing,

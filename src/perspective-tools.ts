@@ -11,6 +11,7 @@ import { twoPointGridLayerType } from "./two-point-grid.js";
 import { threePointGridLayerType } from "./three-point-grid.js";
 import { isometricGridLayerType } from "./isometric-grid.js";
 import { perspectiveFloorLayerType } from "./perspective-plane.js";
+import { atmosphereLayerType, ATMOSPHERE_PRESETS } from "./atmosphere.js";
 
 const PERSPECTIVE_GRID_TYPES = {
   "one-point": onePointGridLayerType,
@@ -276,9 +277,92 @@ export const clearPerspectiveGuidesTool: McpToolDefinition = {
   },
 };
 
+// ---------------------------------------------------------------------------
+// add_atmosphere
+// ---------------------------------------------------------------------------
+
+export const addAtmosphereTool: McpToolDefinition = {
+  name: "add_atmosphere",
+  description:
+    "Add an atmospheric perspective post-process layer. Applies depth-aware value compression, saturation reduction, and color temperature shift. Place near the top of the layer stack. Presets: hazy, clear, golden-hour, overcast.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      preset: {
+        type: "string",
+        enum: ["hazy", "clear", "golden-hour", "overcast"],
+        description: "Atmosphere preset (default: hazy).",
+      },
+      horizonPosition: {
+        type: "number",
+        description: "Horizon Y position as 0–100 percentage (default: 40).",
+      },
+      intensity: {
+        type: "number",
+        description: "Overall effect strength 0–1 (default: 0.5).",
+      },
+      atmosphereColor: {
+        type: "string",
+        description: "Color things fade toward (default: '#c8d4e0').",
+      },
+      colorTemp: {
+        type: "number",
+        description:
+          "Color temperature shift: -1 cool blue to +1 warm orange (default: 0.1).",
+      },
+    },
+  } satisfies JsonSchema,
+
+  async handler(
+    input: Record<string, unknown>,
+    context: McpToolContext,
+  ): Promise<McpToolResult> {
+    const defaults = atmosphereLayerType.createDefault();
+    const properties = { ...defaults };
+
+    // Apply preset first (sets base values)
+    if (input.preset !== undefined) {
+      const presetKey = input.preset as string;
+      const preset = ATMOSPHERE_PRESETS[presetKey];
+      if (!preset) return errorResult(`Unknown preset '${presetKey}'.`);
+      properties.preset = presetKey;
+      properties.valueCompression = preset.valueCompression;
+      properties.saturationReduction = preset.saturationReduction;
+      properties.colorTemp = preset.colorTemp;
+      properties.atmosphereColor = preset.atmosphereColor;
+      properties.edgeSoftness = preset.edgeSoftness;
+      properties.intensity = preset.intensity;
+    }
+
+    // Override individual values
+    if (input.horizonPosition !== undefined) properties.horizonPosition = input.horizonPosition as number;
+    if (input.intensity !== undefined) properties.intensity = input.intensity as number;
+    if (input.atmosphereColor !== undefined) properties.atmosphereColor = input.atmosphereColor as string;
+    if (input.colorTemp !== undefined) properties.colorTemp = input.colorTemp as number;
+
+    const id = generateLayerId();
+    const layer: DesignLayer = {
+      id,
+      type: atmosphereLayerType.typeId,
+      name: atmosphereLayerType.displayName,
+      visible: true,
+      locked: false,
+      opacity: 1,
+      blendMode: "normal",
+      transform: fullCanvasTransform(context),
+      properties,
+    };
+
+    context.layers.add(layer);
+    context.emitChange("layer-added");
+    return textResult(`Added Atmospheric Perspective layer '${id}'.`);
+  },
+};
+
 export const perspectiveMcpTools: McpToolDefinition[] = [
   addPerspectiveGridTool,
   addPerspectiveFloorTool,
   setVanishingPointTool,
   clearPerspectiveGuidesTool,
+  addAtmosphereTool,
 ];
