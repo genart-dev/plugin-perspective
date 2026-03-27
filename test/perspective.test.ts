@@ -43,8 +43,8 @@ describe("perspective plugin", () => {
   it("exports a valid DesignPlugin", () => {
     expect(perspectivePlugin.id).toBe("perspective");
     expect(perspectivePlugin.tier).toBe("free");
-    expect(perspectivePlugin.layerTypes).toHaveLength(6);
-    expect(perspectivePlugin.mcpTools).toHaveLength(5);
+    expect(perspectivePlugin.layerTypes).toHaveLength(7);
+    expect(perspectivePlugin.mcpTools).toHaveLength(10);
   });
 
   it("guide layers have guide category", () => {

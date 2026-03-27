@@ -1,6 +1,6 @@
 {
   "name": "@genart-dev/plugin-perspective",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Perspective grid and floor design layer plugin for genart.dev",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -51,7 +51,8 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@genart-dev/core": "^0.3.0"
+    "@genart-dev/core": "^0.3.0",
+    "@genart-dev/projection": "^0.1.0"
   },
   "devDependencies": {
     "tsup": "^8.3.6",

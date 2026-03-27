@@ -320,19 +320,19 @@ describe("atmosphereLayerType.validate", () => {
 
 describe("plugin integration", () => {
   it("plugin includes atmosphere layer type", () => {
-    expect(perspectivePlugin.layerTypes).toHaveLength(6);
+    expect(perspectivePlugin.layerTypes).toHaveLength(7);
     const atm = perspectivePlugin.layerTypes.find(
       (lt) => lt.typeId === "perspective:atmosphere",
     );
     expect(atm).toBeDefined();
   });
 
-  it("plugin includes 5 MCP tools", () => {
-    expect(perspectivePlugin.mcpTools).toHaveLength(5);
+  it("plugin includes 10 MCP tools", () => {
+    expect(perspectivePlugin.mcpTools).toHaveLength(10);
   });
 
-  it("plugin version is 0.2.0", () => {
-    expect(perspectivePlugin.version).toBe("0.2.0");
+  it("plugin version is 0.3.0", () => {
+    expect(perspectivePlugin.version).toBe("0.3.0");
   });
 
   it("atmosphere layer has effect category (not guide)", () => {

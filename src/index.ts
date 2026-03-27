@@ -5,17 +5,20 @@ import { threePointGridLayerType } from "./three-point-grid.js";
 import { isometricGridLayerType } from "./isometric-grid.js";
 import { perspectiveFloorLayerType } from "./perspective-plane.js";
 import { atmosphereLayerType } from "./atmosphere.js";
+import { cameraLayerType } from "./camera.js";
 import { perspectiveMcpTools } from "./perspective-tools.js";
+import { cameraMcpTools } from "./camera-tools.js";
 
 const perspectivePlugin: DesignPlugin = {
   id: "perspective",
-  name: "Perspective Grids",
-  version: "0.2.0",
+  name: "Perspective & Camera",
+  version: "0.3.0",
   tier: "free",
   description:
-    "Perspective guides: one-point, two-point, three-point, isometric grids, floor plane, and atmospheric perspective.",
+    "Scene camera, perspective guides (one-point, two-point, three-point, isometric), floor plane, and atmospheric perspective.",
 
   layerTypes: [
+    cameraLayerType,
     onePointGridLayerType,
     twoPointGridLayerType,
     threePointGridLayerType,
@@ -25,7 +28,7 @@ const perspectivePlugin: DesignPlugin = {
   ],
   tools: [],
   exportHandlers: [],
-  mcpTools: perspectiveMcpTools,
+  mcpTools: [...perspectiveMcpTools, ...cameraMcpTools],
 
   async initialize(_context: PluginContext): Promise<void> {
     // No async setup needed
@@ -37,6 +40,10 @@ const perspectivePlugin: DesignPlugin = {
 };
 
 export default perspectivePlugin;
+export { cameraLayerType } from "./camera.js";
+export { resolveCameraProps, CAMERA_PRESETS } from "./camera.js";
+export type { CameraProps, CameraPresetName } from "./camera.js";
+export { cameraMcpTools } from "./camera-tools.js";
 export { onePointGridLayerType } from "./one-point-grid.js";
 export { twoPointGridLayerType } from "./two-point-grid.js";
 export { threePointGridLayerType } from "./three-point-grid.js";
